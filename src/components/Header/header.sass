@@ -11,14 +11,15 @@
 .navbar-light .navbar-nav .nav-link:hover
   text-shadow: 0 0 10px $tertiary, 0 0 20px $tertiary, 0 0 30px $tertiary, 0 0 40px $tertiary, 0 0 50px $tertiary, 0 0 60px $tertiary, 0 0 70px $tertiary
 
-.btn-login
-  background-color: $tertiary
-  color: $secondary
-  margin-right: 3rem
-  box-shadow: 0 0 8px $tertiary
-  &:hover
-    box-shadow: 0 0 8px $secondary
+.header
+  .btn-tertiary
     color: $secondary
+    margin-right: 3rem
+    box-shadow: 0 0 8px $tertiary
+    transition: all .5s
+    &:hover
+      box-shadow: 0 0 8px $secondary
+      color: $secondary
 
 .search
   margin-right: 4rem
