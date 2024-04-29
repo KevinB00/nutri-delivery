@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import "./footer.sass";
 const FooterComponent = () => {
   return (
-    <Container fluid className="footer">
+    <Container fluid className="footer p-5">
       <Row className="align-items-center">
         <Col>
           <Navbar.Brand href="home">
@@ -51,12 +51,6 @@ const FooterComponent = () => {
               </Nav.Link>
             </Nav>
           </Nav>
-        </Col>
-      </Row>
-      <hr />
-      <Row>
-        <Col className="text-center">
-          <p>© 2024 NutriDelivery. Todos los derechos reservados.</p>
         </Col>
       </Row>
     </Container>
