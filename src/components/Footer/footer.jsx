@@ -44,7 +44,7 @@ const FooterComponent = () => {
                 <i className="bi bi-facebook" style={{ fontSize: "30px" }}></i>
               </Nav.Link>
               <Nav.Link>
-                <i className="bi bi-twitter" style={{ fontSize: "30px" }}></i>
+                <i className="bi bi-twitter-x" style={{ fontSize: "30px" }}></i>
               </Nav.Link>
               <Nav.Link>
                 <i className="bi bi-instagram" style={{ fontSize: "30px" }}></i>
