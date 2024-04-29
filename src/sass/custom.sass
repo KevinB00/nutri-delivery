@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Raleway:wght@400;700&display=swap')
 
-$font-family-sans-serif: 'Roboto', sans-serif !default
-$font-family-monospace: 'Raleway', sans-serif !default
+$font-family-sans-serif: Roboto
+$font-family-monospace: Raleway
 $primary: #FA7070
-$secondary: #FEFDED
+$secondary: #D3BEA9
 $tertiary: #A1C398
 $cuartet: #C6EBC5
+$blue: #FA7070
+$body-bg: #FEFDED
+$body-color: #555555
+$border-color: #C6EBC5
+$popover-border-color: $tertiary
+$progress-bar-bg: #C6EBC5
 
 $theme-colors: ()
 // Agregar colores personalizados a Bootstrap
@@ -13,11 +19,3 @@ $theme-colors: map-merge($theme-colors, ("primary": $primary, "secondary": $seco
 
 
 @import 'bootstrap/scss/bootstrap'
-
-
-.card 
-  background-color: $tertiary
-  color: $secondary
-  .card-title, .card-text 
-    color: $secondary 
-  
