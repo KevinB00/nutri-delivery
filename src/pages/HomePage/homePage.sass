@@ -15,14 +15,16 @@
     transition: all .5s
     &:hover
         box-shadow: 0 0 15px $tertiary
-        color: $secondary
+        color: $tertiary
+        transform: scale(1.1)
+
     .card-text
         margin-top: 10px
         text-align: justify
     i
         color: $primary
     .btn-primary
-        color: $secondary
+        color: $white
         box-shadow: 0 0 8px $primary
         transition: all .5s
         &:hover
@@ -35,7 +37,6 @@
 
 .buttons
     .btn-tertiary
-        color: $secondary
         box-sizing: border-box
         border-radius: 10px
         box-shadow: 0 0 8px $tertiary
@@ -45,8 +46,14 @@
         width: 60%
         &:hover
             box-shadow: 0 0 8px $secondary
-            color: $secondary
+            color: $white
 
 .chat
     color: $primary
     margin-right: 80px
+
+@media screen and (max-width: 1198px)
+    .col
+        .card
+            margin-left: 80px
+
