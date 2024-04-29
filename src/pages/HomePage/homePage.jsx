@@ -21,7 +21,7 @@ const HomePage = () => {
           <Container className="mt-5 mb-5 d-flex justify-content-center">
             <Row className="d-flex align-items-center">
               <Col>
-                <Card style={{ width: "18rem", marginRight: "6rem" }}>
+                <Card border="tertiary" style={{ width: "18rem", marginRight: "6rem" }}>
                   <Card.Body>
                     <Card.Text className="card-text text">
                       A domicilio cuando quiera desde su casa. Nos aseguramos de
@@ -43,7 +43,7 @@ const HomePage = () => {
                 ></i>
               </Col>
               <Col>
-                <Card className="custom-card" style={{ width: "18rem" }}>
+                <Card border="tertiary" style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Text className="card-text text">
                       Únase a la mejor comunidad donde podrá informarse y
@@ -91,7 +91,7 @@ const HomePage = () => {
           <Container className="d-flex justify-content-center align-items-center mb-5">
             <Row>
               <Col>
-                <Card className="custom-card" style={{ width: "18rem", marginRight: "80px" }}>
+                <Card border="tertiary" className="mb-5" style={{ width: "18rem", marginRight: "80px"}}>
                   <Card.Body>
                     <Card.Text className="card-text text">
                       Comparte tus comidas en nuestra comunidad, hazte con
@@ -104,7 +104,7 @@ const HomePage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card className="custom-card" style={{ width: "18rem" }}>
+                <Card border="tertiary" style={{ width: "18rem" }}>
                   <Card.Body>
                     <Card.Text className="card-text text">
                       Únase a la mejor comunidad donde podrá informarse y
