@@ -8,7 +8,7 @@ import "./header.sass"
 const HeaderComponent = () => {
 
     return (
-        <Navbar className="navbar" bg="primary" expand="lg" >
+        <Navbar className="navbar header" bg="primary" expand="lg" >
             <Container fluid>
                 <Navbar.Brand href="home">
                     <img
