@@ -43,7 +43,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" label="Recuérdame" />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="outline-tertiary" type="submit">
                 Iniciar sesión
               </Button>
             </Form>
