@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage/homePage';
 import CommunityPage from './pages/CommunityPage';
 import Login from './pages/Login/login';
 import Register from './pages/Register/register';
-
+import ErrorPage from './pages/Error/error';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           <Route path="community" element={<CommunityPage />} />
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
   );
