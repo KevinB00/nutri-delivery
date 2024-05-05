@@ -3,7 +3,10 @@ import HomePage from './pages/HomePage/homePage';
 import CommunityPage from './pages/CommunityPage';
 import Login from './pages/Login/login';
 import Register from './pages/Register/register';
-
+import ListaPlatos from './pages/ListaPlatos/listaPlatos';
+import ListaRestaurantes from './pages/ListaRestaurante/listaRestaurantes';
+import InfoPlato from './pages/InfoPlato/infoPlato';
+import PlatosRestaurante from './pages/PlatosRestaurante/platosRestaurante';
 
 function App() {
   return (
@@ -14,6 +17,10 @@ function App() {
           <Route path="community" element={<CommunityPage />} />
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
+          <Route path="platos" element={<ListaPlatos />}></Route>
+          <Route path='plato/:platoId' element={<InfoPlato />}/>
+          <Route path="restaurantes" element={<ListaRestaurantes />}></Route>
+          <Route path='restaurante/:restauranteId/platos' element={<PlatosRestaurante />}/>
         </Routes>
       </BrowserRouter>
   );
