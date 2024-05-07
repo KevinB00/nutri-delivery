@@ -23,7 +23,7 @@ const CardRestaurante = (props) => {
         <Card.Text>
           Horario de cierre: {props.horarioCierre}
         </Card.Text>
-        <Button variant="cuartet" href={`/restaurante/${props.id}/platos`}>Ver platos</Button>
+        <Button variant="cuartet" href={`restaurante/${props.id}/platos`}>Ver platos</Button>
       </Card.Body>
     </Card>
   )

@@ -1,0 +1,51 @@
+@import '../../sass/custom.sass'
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css")
+
+.plato-info
+    padding: 2rem
+    .plato-title
+        color: $primary
+    .form-control
+        border-radius: 1rem
+        background-color: $white
+        box-shadow: 0 0 8px $tertiary
+        &:focus
+            box-shadow: 0 0 8px $secondary
+    .btn-tertiary
+        box-shadow: 0 0 8px $tertiary
+        transition: all .5s
+        width: 30%
+        height: 3rem
+        &:hover
+            box-shadow: 0 0 8px $secondary
+            color: $white
+            transform: scale(1.1)
+    .plato-price
+        display: flex
+        align-items: center
+        justify-content: flex-end
+        font-size: 2rem
+        color: $secondary
+        margin-bottom: 1rem
+        &:hover
+            color: $tertiary
+        
+
+.quantityInfo
+    border-radius: 1rem
+    box-shadow: 0 0 8px $tertiary
+    padding: 1rem
+    .btn-tertiary
+        box-shadow: 0 0 8px $tertiary
+        transition: all .5s
+        &:hover
+            box-shadow: 0 0 8px $secondary
+            color: $white
+            transform: scale(1.1)
+
+.plato-nutrition-info
+    border-radius: 1rem
+    padding: 1rem
+    .list-group-item
+        &:hover
+            color: $tertiary       
