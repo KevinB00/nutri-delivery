@@ -6,7 +6,7 @@ import Register from './pages/Register/register';
 import ListaPlatos from './pages/ListaPlatos/listaPlatos';
 import ListaRestaurantes from './pages/ListaRestaurante/listaRestaurantes';
 import InfoPlato from './pages/InfoPlato/infoPlato';
-
+import Perfil from './pages/Perfil/perfil';
 function App() {
   return (
       <BrowserRouter>
@@ -19,7 +19,8 @@ function App() {
           <Route path="platos" element={<ListaPlatos />}></Route>
           <Route path='plato/:platoId' element={<InfoPlato />}/>
           <Route path="restaurantes" element={<ListaRestaurantes />}></Route>
-          <Route path='restaurante/:restauranteId/platos' element={<ListaPlatos />}>
+          <Route path='restaurante/:restauranteId/platos' element={<ListaPlatos />}/>
+          <Route path='perfil' element={<Perfil />}>
           </Route>
         </Routes>
       </BrowserRouter>
