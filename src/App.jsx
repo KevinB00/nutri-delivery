@@ -6,7 +6,6 @@ import Register from './pages/Register/register';
 import ListaPlatos from './pages/ListaPlatos/listaPlatos';
 import ListaRestaurantes from './pages/ListaRestaurante/listaRestaurantes';
 import InfoPlato from './pages/InfoPlato/infoPlato';
-import PlatosRestaurante from './pages/PlatosRestaurante/platosRestaurante';
 
 function App() {
   return (
@@ -20,10 +19,12 @@ function App() {
           <Route path="platos" element={<ListaPlatos />}></Route>
           <Route path='plato/:platoId' element={<InfoPlato />}/>
           <Route path="restaurantes" element={<ListaRestaurantes />}></Route>
-          <Route path='restaurante/:restauranteId/platos' element={<PlatosRestaurante />}/>
+          <Route path='restaurante/:restauranteId/platos' element={<ListaPlatos />}>
+          </Route>
         </Routes>
       </BrowserRouter>
   );
 }
+
 
 export default App;
