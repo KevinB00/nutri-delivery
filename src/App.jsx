@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/homePage';
 import Login from './pages/Login/login';
 import Register from './pages/Register/register';
+import ErrorPage from './pages/Error/error';
 import ListaPlatos from './pages/ListaPlatos/listaPlatos';
 import ListaRestaurantes from './pages/ListaRestaurante/listaRestaurantes';
 import InfoPlato from './pages/InfoPlato/infoPlato';
@@ -16,6 +17,7 @@ function App() {
           <Route path="community" element={<CommunityPage />} />
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
+          <Route path="*" element={<ErrorPage />} />
           <Route path="platos" element={<ListaPlatos />}></Route>
           <Route path='plato/:platoId' element={<InfoPlato />}/>
           <Route path="restaurantes" element={<ListaRestaurantes />}></Route>
