@@ -10,6 +10,7 @@ import Nav from "react-bootstrap/Nav";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
 import PostList from "../../components/PostList/postList";
+import ComentarioList from "../../components/ComentarioList/comentarioList";
 import "./perfil.sass";
 const Perfil = () => {
   const [key, setKey] = useState("favoritos");
@@ -17,29 +18,100 @@ const Perfil = () => {
   const [nameError, setNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+
+  const comentarios = [
+    {
+        id: 1,
+        comentario: "Contenido del primer comentario...",
+        nombreUsuario: "Juan",
+        fechaComentario: "01/01/2022"
+    },
+    {
+        id: 2,
+        comentario: "Contenido del segundo comentario...",
+        nombreUsuario: "Maria",
+        fechaComentario: "02/01/2022"
+    },
+    {
+        id: 3,
+        comentario: "Contenido del tercer comentario...",
+        nombreUsuario: "Carlos",
+        fechaComentario: "03/01/2022"
+    }
+];
+
+
+
+// Array de post ficticios
 const posts = [
     {
         id: 1,
         title: "Mi primer post",
-        content: "Contenido del primer post...",
-        author: "Juan",
-        date: "01/01/2022"
+        body: "Contenido del primer post...",
+        image: "https://via.placeholder.com/150",
+        numFavorites: 5,
+        date: "01/01/2022",
+        comentarios: [
+            {
+                id: 1,
+                comentario: "Contenido del primer comentario del primer post...",
+                nombreUsuario: "Pedro",
+                fechaComentario: "01/01/2022"
+            },
+            {
+                id: 2,
+                comentario: "Contenido del segundo comentario del primer post...",
+                nombreUsuario: "Ana",
+                fechaComentario: "01/01/2022"
+            },
+        ]
     },
     {
         id: 2,
         title: "Otro post interesante",
-        content: "Contenido del segundo post...",
-        author: "Maria",
-        date: "02/01/2022"
+        body: "Contenido del segundo post...",
+        image: "https://via.placeholder.com/150",
+        numFavorites: 3,
+        date: "02/01/2022",
+        comentarios: [
+            {
+                id: 1,
+                comentario: "Contenido del primer comentario del segundo post...",
+                nombreUsuario: "Lucia",
+                fechaComentario: "02/01/2022"
+            },
+            {
+                id: 2,
+                comentario: "Contenido del segundo comentario del segundo post...",
+                nombreUsuario: "Javier",
+                fechaComentario: "02/01/2022"
+            },
+        ]
     },
     {
         id: 3,
         title: "Último post del día",
-        content: "Contenido del tercer post...",
-        author: "Carlos",
-        date: "03/01/2022"
+        body: "Contenido del tercer post...",
+        image: "https://via.placeholder.com/150",
+        numFavorites: 2,
+        date: "03/01/2022",
+        comentarios: [
+            {
+                id: 1,
+                comentario: "Contenido del primer comentario del tercer post...",
+                nombreUsuario: " Sofia",
+                fechaComentario: "03/01/2022"
+            },
+            {
+                id: 2,
+                comentario: "Contenido del segundo comentario del tercer post...",
+                nombreUsuario: "Alberto",
+                fechaComentario: "03/01/2022"
+            },
+        ]
     }
 ];
+
 
 // Usar estos ejemplos de Post para mostrar en el PostList
 
@@ -167,7 +239,7 @@ const posts = [
                         Tab content for Profile
                       </Tab>
                       <Tab eventKey="comentarios" title="Comentarios">
-                        Tab content for Contact
+                        <ComentarioList comentarios={comentarios} />
                       </Tab>
                     </Tabs>
                   </Container>
