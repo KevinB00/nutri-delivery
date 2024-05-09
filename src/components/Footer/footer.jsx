@@ -3,16 +3,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import logo from "../../assets/logo.png";
 import "./footer.sass";
 const FooterComponent = () => {
   return (
     <Container fluid className="footer p-5">
       <Row className="align-items-center">
         <Col>
-          <Navbar.Brand href="home">
+          <Navbar.Brand href="/home">
             <img
-              src="./src/assets/logo.png"
+              src={logo}
               width="100"
               height="70"
               className="d-inline-block align-top logo"
