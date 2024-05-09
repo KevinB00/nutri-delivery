@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/homePage';
-import CommunityPage from './pages/CommunityPage';
 import Login from './pages/Login/login';
 import Register from './pages/Register/register';
 import ListaPlatos from './pages/ListaPlatos/listaPlatos';
 import ListaRestaurantes from './pages/ListaRestaurante/listaRestaurantes';
 import InfoPlato from './pages/InfoPlato/infoPlato';
-
+import Perfil from './pages/Perfil/perfil';
+import CommunityPage from './pages/Community/communityPage';
 function App() {
   return (
       <BrowserRouter>
@@ -19,7 +19,8 @@ function App() {
           <Route path="platos" element={<ListaPlatos />}></Route>
           <Route path='plato/:platoId' element={<InfoPlato />}/>
           <Route path="restaurantes" element={<ListaRestaurantes />}></Route>
-          <Route path='restaurante/:restauranteId/platos' element={<ListaPlatos />}>
+          <Route path='restaurante/:restauranteId/platos' element={<ListaPlatos />}/>
+          <Route path='perfil' element={<Perfil />}>
           </Route>
         </Routes>
       </BrowserRouter>
