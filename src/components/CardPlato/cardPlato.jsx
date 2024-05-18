@@ -16,7 +16,7 @@ const CardPlato = (props) => {
         <Card.Body>
             <Card.Title>{props.nombre}</Card.Title>
             <Card.Text>
-                Precio: {props.precio.toFixed(2)}€
+                Precio: {props.precio}€
             </Card.Text>
             <Card.Text>
                 Descripción: {props.descripcion}
