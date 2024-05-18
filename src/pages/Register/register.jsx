@@ -96,7 +96,7 @@ const Register = () => {
             style={{ fontSize: "60px" }}
           />
           <h1 className="title text-white">Registro de usuario</h1>
-          <Form className="form" onSubmit={handleSubmit}>
+          <Form className="form" action="http://localhost/nutri-delivery/backend/auth/register.php" method="POST">
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label className="text-white">Nombre de usuario</Form.Label>
               <Form.Control
@@ -106,6 +106,7 @@ const Register = () => {
                 className={`text ${usernameError ? "is-invalid" : ""}`}
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
+                name="username"
               />
               <Form.Control.Feedback type="invalid">
                 {!usernameError && "Por favor ingresa un nombre de usuario."}
@@ -121,6 +122,7 @@ const Register = () => {
                 className={`text ${cityError ? "is-invalid" : ""}`}
                 value={city}
                 onChange={handleCityChange}
+                name="city"
               />
               <Form.Control.Feedback type="invalid">
                 {!cityError && "Por favor ingresa una ciudad."}
@@ -136,6 +138,7 @@ const Register = () => {
                 className={`text ${emailError ? "is-invalid" : ""}`}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                name="email"
               />
               <Form.Control.Feedback type="invalid">
                 {!emailError && "Por favor ingresa un email."}
@@ -151,6 +154,7 @@ const Register = () => {
                 className={`text ${passwordError ? "is-invalid" : ""}`}
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                name="password"
               />
               <Form.Control.Feedback type="invalid">
                 {!passwordError && "Por favor ingresa una contraseña."}
