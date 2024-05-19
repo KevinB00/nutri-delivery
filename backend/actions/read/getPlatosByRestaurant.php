@@ -8,8 +8,9 @@ header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Or
 
 try {
     $conn = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt = $conn->prepare("SELECT * FROM plato");
+    // Obtener los platos de un restaurante
+    $stmt = $conn->prepare("SELECT * FROM plato WHERE id_restaurante = :id_restaurante");
+    $stmt->bindParam(':id_restaurante', $_GET['id_restaurante']);
     $stmt->execute();
     $platos = array();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -28,5 +29,5 @@ try {
     }
     echo json_encode($platos);
 } catch (PDOException $e) {
-    echo json_encode(['error' => $e->getMessage()]);
+    echo "Error: " . $e->getMessage();
 }

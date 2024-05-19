@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,12 +9,17 @@ import CardPlato from '../../components/CardPlato/cardPlato';
 import './listaPlatos.sass';
 
 const ListaPlatos = () => {
-  const url = "http://localhost/nutri-delivery/backend/actions/read/getAllPlatos.php";
+  const { restauranteId } = useParams();
   const [platos, setPlatos] = useState([]);
+  const baseUrl = "http://localhost/nutri-delivery/backend/actions/read/";
 
   useEffect(() => {
     const fetchPlatos = async () => {
       try {
+        const url = restauranteId 
+          ? `${baseUrl}getPlatosByRestaurant.php?id_restaurante=${restauranteId}`
+          : `${baseUrl}getAllPlatos.php`;
+
         const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
@@ -27,7 +33,7 @@ const ListaPlatos = () => {
     };
 
     fetchPlatos();
-  }, []);
+  }, [restauranteId]);
 
   return (
     <>
