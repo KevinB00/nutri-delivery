@@ -24,7 +24,7 @@ const ListaRestaurantes = () => {
       <HeaderComponent />
       <Container>
         <Form.Select
-          className="ciudad-seleccionada"
+          className="mt-3 ciudad-seleccionada"
           value={ciudadSeleccionada}
           onChange={(e) => setCiudadSeleccionada(e.target.value)}
         >

@@ -46,7 +46,7 @@ const ListaPlatos = () => {
                 id={plato.id} 
                 nombre={plato.nombre} 
                 precio={plato.precio} 
-                img={plato.imagen_url} 
+                img={`http://localhost/nutri-delivery/public/${plato.imagen_url}`} 
                 descripcion={`${plato.calorias} cal | ${plato.proteinas}g proteínas | ${plato.carbohidratos}g carbohidratos | ${plato.grasas}g grasas`} 
               />
             </Col>
