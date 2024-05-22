@@ -12,11 +12,11 @@ const CardPlato = (props) => {
     }
   return (
     <Card className="card-plato">
-        <Card.Img variant="top" src={props.img} alt={props.nombre} />
+        <Card.Img variant="top" src={props.img} alt={props.nombre} style={{height: "350px"}} />
         <Card.Body>
             <Card.Title>{props.nombre}</Card.Title>
             <Card.Text>
-                Precio: {props.precio.toFixed(2)}€
+                Precio: {props.precio}€
             </Card.Text>
             <Card.Text>
                 Descripción: {props.descripcion}

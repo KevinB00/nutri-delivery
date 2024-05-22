@@ -1,12 +1,14 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import "./cardRestaurante.sass";
+import { CardText } from "react-bootstrap";
 
 const CardRestaurante = (props) => {
   CardRestaurante.propTypes = {
     id: Number,
     nombre: String,
     direccion: String,
+    telefono: String,
     horarioApertura: String,
     horarioCierre: String,
   };
@@ -17,6 +19,9 @@ const CardRestaurante = (props) => {
         <Card.Text>
           Dirección: {props.direccion}
         </Card.Text>
+        <CardText>
+          Telefono: {props.telefono}
+        </CardText>
         <Card.Text>
           Horario de apertura: {props.horarioApertura}
         </Card.Text>
