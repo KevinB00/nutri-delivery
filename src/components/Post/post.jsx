@@ -40,7 +40,7 @@ const Post = (props) => {
         <Card.Text>{props.postText}</Card.Text>
         <img src={props.postImage} alt="Post" />
         <p>Fecha de publicación: {props.postDate}</p>
-        <Button variant="cuartet" onClick={handleFavoriteClick}>
+        <Button variant="tertiary" onClick={handleFavoriteClick}>
           <i className={`bi bi-star${isFavorited ? "-fill" : ""}`}></i>{" "}
           <span>{props.numFavorites}</span>
         </Button>

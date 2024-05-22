@@ -72,9 +72,14 @@ const CommunityPage = () => {
     <>
       <HeaderComponent />
       <Container>
-        <Row className="mb-3">
+        <Row className="mb-3 mt-3">
+          <Col className="text-start">
+            <Button variant="secondary" onClick={() => history.push("/create-post")}>
+              Crear post
+            </Button>
+          </Col>
           <Col className="text-end">
-            <Button variant="primary" onClick={() => setFilterOptionsVisible(true)}>Filtros</Button>
+            <Button variant="secondary" onClick={() => setFilterOptionsVisible(true)}>Filtros</Button>
             <Modal show={filterOptionsVisible} onHide={() => setFilterOptionsVisible(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Filtros</Modal.Title>
