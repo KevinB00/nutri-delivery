@@ -8,6 +8,7 @@ import ListaRestaurantes from "./pages/ListaRestaurante/listaRestaurantes";
 import InfoPlato from "./pages/InfoPlato/infoPlato";
 import Perfil from "./pages/Perfil/perfil";
 import CommunityPage from "./pages/Community/communityPage";
+import AdminPage from "./pages/Admin/adminPage";
 
 function App(props) {
   return (
@@ -29,6 +30,7 @@ function App(props) {
           element={<ListaPlatos />}
         />
         <Route path="perfil" element={<Perfil />}></Route>
+        <Route path="admin" element={<AdminPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
