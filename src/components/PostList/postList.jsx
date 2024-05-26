@@ -5,20 +5,12 @@ const PostList = ({ posts }) => {
   PostList.propTypes = {
     posts: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        body: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-        numFavorites: PropTypes.number.isRequired,
-        date: PropTypes.string.isRequired,
-        comentarios: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            comentario: PropTypes.string.isRequired,
-            nombreUsuario: PropTypes.string.isRequired,
-            fechaComentario: PropTypes.string.isRequired,
-          })
-        ).isRequired,
+        id_publicacion: PropTypes.number.isRequired,
+        titulo: PropTypes.string.isRequired,
+        contenido: PropTypes.string.isRequired,
+        tiene_imagen: PropTypes.number.isRequired,
+        numero_favoritos: PropTypes.number.isRequired,
+        fecha_publicacion: PropTypes.string.isRequired
       })
     ).isRequired,
   };
@@ -27,13 +19,13 @@ const PostList = ({ posts }) => {
       {posts.length > 0 ? (
         posts.map((post) => (
           <Post
-            key={post.id}
-            postTitle={post.title}
-            postText={post.body}
-            postImage={post.image}
-            postDate={post.date}
-            numFavorites={post.numFavorites}
-            comentarios={post.comentarios}
+            key={post.id_publicacion}
+            postId={post.id_publicacion}
+            postTitle={post.titulo}
+            postText={post.contenido}
+            postImage={post.tiene_imagen}
+            postDate={post.fecha_publicacion}
+            numFavorites={post.numero_favoritos}
           />
         ))
       ) : (

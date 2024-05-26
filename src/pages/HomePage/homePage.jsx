@@ -66,19 +66,19 @@ const HomePage = () => {
               aria-label="City buttons"
               className="d-flex align-items-center"
             >
-              <Button variant="tertiary" href="#">
+              <Button variant="tertiary" href="/restaurantes?ciudad=Madrid">
                 Madrid
               </Button>
-              <Button variant="tertiary" href="#">
+              <Button variant="tertiary" href="/restaurantes?ciudad=Barcelona">
                 Barcelona
               </Button>
-              <Button variant="tertiary" href="#">
+              <Button variant="tertiary" href="/restaurantes?ciudad=Valencia">
                 Valencia
               </Button>
-              <Button variant="tertiary" href="#">
+              <Button variant="tertiary" href="/restaurantes?ciudad=Sevilla">
                 Sevilla
               </Button>
-              <Button variant="tertiary" href="#">
+              <Button variant="tertiary" href="/restaurantes?ciudad=Zaragoza">
                 Zaragoza
               </Button>
             </ButtonGroup>

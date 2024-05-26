@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,6 +10,7 @@ import Modal from "react-bootstrap/Modal";
 import "./communityPage.sass";
 
 const CommunityPage = () => {
+  const [posts, setPosts] = useState([]);
   const [filterOptionsVisible, setFilterOptionsVisible] = useState(false);
   const setFilter = (filter) => {
     filter === "favoritos"
@@ -19,62 +20,30 @@ const CommunityPage = () => {
     setFilterOptionsVisible(false);
   }
 
-  // Array de post ficticios
-  const posts = [
-    {
-      id: 1,
-      title: "Mi primer post",
-      body: "Contenido del primer post...",
-      image: "https://via.placeholder.com/150",
-      numFavorites: 5,
-      date: "01/01/2022",
-      comentarios: [
-        {
-          id: 1,
-          comentario: "Contenido del primer comentario del primer post...",
-          nombreUsuario: "Pedro",
-          fechaComentario: "01/01/2022",
-        },
-        {
-          id: 2,
-          comentario: "Contenido del segundo comentario del primer post...",
-          nombreUsuario: "Maria",
-          fechaComentario: "02/01/2022",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Mi segundo post",
-      body: "Contenido del segundo post...",
-      image: "https://via.placeholder.com/150",
-      numFavorites: 3,
-      date: "02/01/2022",
-      comentarios: [
-        {
-          id: 1,
-          comentario: "Contenido del primer comentario del segundo post...",
-          nombreUsuario: "Juan",
-          fechaComentario: "01/01/2022",
-        },
-        {
-          id: 2,
-          comentario: "Contenido del segundo comentario del segundo post...",
-          nombreUsuario: "Carlos",
-          fechaComentario: "02/01/2022",
-        },
-      ],
-    },
-  ];
+  //Listar posts
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch("http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php");
+      const data = await response.json();
+      setPosts(data);
+    };
+    fetchPosts();
+  }, []);
+  
 
 
   return (
     <>
       <HeaderComponent />
       <Container>
-        <Row className="mb-3">
+        <Row className="mb-3 mt-3">
+          <Col className="text-start">
+            <Button variant="secondary" onClick={() => window.location.href = "/createPost"}>
+              Crear post
+            </Button>
+          </Col>
           <Col className="text-end">
-            <Button variant="primary" onClick={() => setFilterOptionsVisible(true)}>Filtros</Button>
+            <Button variant="secondary" onClick={() => setFilterOptionsVisible(true)}>Filtros</Button>
             <Modal show={filterOptionsVisible} onHide={() => setFilterOptionsVisible(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Filtros</Modal.Title>

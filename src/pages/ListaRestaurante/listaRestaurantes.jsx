@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import CardRestaurante from "../../components/CardRestaurante/cardRestaurante";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
@@ -7,10 +8,14 @@ import Form from "react-bootstrap/Form";
 import "./listaRestaurantes.sass";
 
 const ListaRestaurantes = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const initialCity = queryParams.get('ciudad') || "Madrid";
+
   const url =
     "http://localhost/nutri-delivery/backend/actions/read/getAllRestaurants.php";
   const [restaurantes, setRestaurantes] = React.useState([]);
-  const [ciudadSeleccionada, setCiudadSeleccionada] = React.useState("Madrid");
+  const [ciudadSeleccionada, setCiudadSeleccionada] = React.useState(initialCity)
 
   React.useEffect(() => {
     fetch(`${url}?ciudad=${ciudadSeleccionada}`)

@@ -53,9 +53,6 @@ const Login = () => {
                   ¿No tienes una cuenta? <a href="/register">Regístrate</a>
                 </Form.Label>
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Recuérdame" />
-              </Form.Group>
               <Button variant="outline-tertiary" type="submit">
                 Iniciar sesión
               </Button>
