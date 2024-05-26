@@ -99,6 +99,7 @@ const Register = () => {
         if (response.ok) {
           const result = await response.json();
           console.log("Registro exitoso", result);
+          window.location.href = "http://localhost:5173/";
         } else {
           console.error("Error en el registro");
         }

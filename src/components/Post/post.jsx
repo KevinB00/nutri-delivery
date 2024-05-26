@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -13,34 +13,84 @@ const Post = (props) => {
     postId: PropTypes.number.isRequired,
     postTitle: PropTypes.string.isRequired,
     postText: PropTypes.string.isRequired,
-    postImage: PropTypes.string.isRequired,
+    postImage: PropTypes.number.isRequired,
     postDate: PropTypes.string.isRequired,
     numFavorites: PropTypes.number.isRequired,
-    comentarios: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        comentario: PropTypes.string.isRequired,
-        nombreUsuario: PropTypes.string.isRequired,
-        fechaComentario: PropTypes.string.isRequired,
-      })
-    ).isRequired,
   };
   const [isFavorited, setIsFavorited] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [numFavorites, setNumFavorites] = useState(props.numFavorites);
   const [showModal, setShowModal] = useState(false);
   const [comment, setComment] = useState("");
+  const [comentarios, setComentarios] = useState([]);
 
-  const handleFavoriteClick = () => {
+  useEffect(() => {
+    const fetchIsFavorited = async () => {
+      const id_post = props.postId;
+      const id_usuario = getCookie("userId");
+
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/checkFavorito.php?id_post=${id_post}&id_usuario=${id_usuario}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsFavorited(data.esFavorito);
+      } else {
+        console.error("Error al verificar el favorito");
+      }
+    };
+
+    fetchIsFavorited();
+  }, [props.postId]);
+
+  const handleFavoriteClick = async () => {
     setIsFavorited(!isFavorited);
-  };
 
-  const toggleComments = () => {
+    const id_post = props.postId;
+    const id_usuario = getCookie("userId");
+    const action = isFavorited ? "quitar" : "agregar";
+
+    const response = await fetch(
+      "http://localhost/nutri-delivery/backend/actions/update/updateFavorite.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_post, id_usuario, action }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setNumFavorites(data.numFavorites);
+    } else {
+      console.error("Error al actualizar el número de favoritos");
+    }
+  };
+  const toggleComments = async () => {
+    if (!showComments) {
+      try {
+        const response = await fetch(
+          `http://localhost/nutri-delivery/backend/actions/read/getComentariosByPost.php?id_post=${props.postId}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setComentarios(data);
+        } else {
+          console.error("Error al obtener los comentarios");
+        }
+      } catch (error) {
+        console.error("Error al obtener los comentarios:", error);
+      }
+    }
     setShowComments(!showComments);
   };
 
   const handleSubmitComment = async () => {
     const id_publicacion = props.postId;
-    const id_usuario = getCookie("id_usuario"); // Implementa getCookie para obtener el ID del usuario desde las cookies
+    const id_usuario = getCookie("userId");
     const comentario = comment;
 
     const response = await fetch(
@@ -72,7 +122,7 @@ const Post = (props) => {
         <p>Fecha de publicación: {props.postDate}</p>
         <Button variant="tertiary" onClick={handleFavoriteClick}>
           <i className={`bi bi-star${isFavorited ? "-fill" : ""}`}></i>{" "}
-          <span>{props.numFavorites}</span>
+          <span>{numFavorites}</span>
         </Button>
         <Button
           variant="outline-secondary"
@@ -88,7 +138,7 @@ const Post = (props) => {
         >
           <i className="bi bi-chat-square-text-fill"></i> Ver comentarios
         </Button>
-        {showComments && <ComentarioList comentarios={props.comentarios} />}
+        {showComments && <ComentarioList comentarios={comentarios} />}
       </Card.Body>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -124,7 +174,13 @@ const Post = (props) => {
 export default Post;
 
 function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(";").shift();
+  const cookies = document.cookie.split(";");
+  let userId;
+  cookies.forEach((cookie) => {
+    const [cookieName, cookieValue] = cookie.trim().split("=");
+    if (cookieName === name) {
+      userId = cookieValue;
+    }
+  });
+  return userId;
 }
