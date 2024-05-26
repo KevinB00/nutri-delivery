@@ -74,7 +74,7 @@ const CommunityPage = () => {
       <Container>
         <Row className="mb-3 mt-3">
           <Col className="text-start">
-            <Button variant="secondary" onClick={() => history.push("/create-post")}>
+            <Button variant="secondary" onClick={() => window.location.href = "/createPost"}>
               Crear post
             </Button>
           </Col>

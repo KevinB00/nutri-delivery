@@ -20,12 +20,9 @@ const Register = () => {
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${city}&format=json&addressdetails=1&limit=1`);
       const data = await response.json();
-      
       if (data.length > 0) {
         const cityInfo = data[0];
         const country = cityInfo.address.country;
-        
-        // Verificar si el país es España
         return country === 'España';
       } else {
         console.log('Ciudad no encontrada en OpenStreetMap');
@@ -38,7 +35,6 @@ const Register = () => {
   };
 
   const validarEmail = (email) => {
-    // Expresión regular para validar el formato de correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -56,36 +52,62 @@ const Register = () => {
 
   const validateForm = () => {
     let valid = true;
+
     if (username.length < 4 || username.length > 15) {
       setUsernameError(true);
       valid = false;
     } else {
       setUsernameError(false);
     }
-    if(!validarEmail(email)){
+
+    if (!validarEmail(email)) {
       setEmailError(true);
       valid = false;
     } else {
       setEmailError(false);
     }
+
     if (cityError) {
       valid = false;
     }
+
     if (password.length < 8 || password.length > 20) {
       setPasswordError(true);
       valid = false;
     } else {
       setPasswordError(false);
     }
+
     return valid;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      event.preventDefault();
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("city", city);
+      formData.append("email", email);
+      formData.append("password", password);
+
+      try {
+        const response = await fetch("http://localhost/nutri-delivery/backend/auth/register.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("Registro exitoso", result);
+        } else {
+          console.error("Error en el registro");
+        }
+      } catch (error) {
+        console.error("Error en la conexión con el backend", error);
+      }
     }
   };
+
   return (
     <>
       <HeaderComponent />
@@ -96,7 +118,7 @@ const Register = () => {
             style={{ fontSize: "60px" }}
           />
           <h1 className="title text-white">Registro de usuario</h1>
-          <Form className="form" action="http://localhost/nutri-delivery/backend/auth/register.php" method="POST">
+          <Form className="form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label className="text-white">Nombre de usuario</Form.Label>
               <Form.Control

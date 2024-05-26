@@ -28,6 +28,7 @@ const PostList = ({ posts }) => {
         posts.map((post) => (
           <Post
             key={post.id}
+            postId={post.id}
             postTitle={post.title}
             postText={post.body}
             postImage={post.image}

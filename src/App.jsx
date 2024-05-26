@@ -9,6 +9,7 @@ import InfoPlato from "./pages/InfoPlato/infoPlato";
 import Perfil from "./pages/Perfil/perfil";
 import CommunityPage from "./pages/Community/communityPage";
 import AdminPage from "./pages/Admin/adminPage";
+import CreatePost from "./pages/CrearPost/crearPost";
 
 function App(props) {
   return (
@@ -17,6 +18,7 @@ function App(props) {
         <Route path="/" element={<HomePage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="community" element={<CommunityPage />} />
+        <Route path="createPost" element={<CreatePost />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="register" element={<Register />}></Route>
         <Route path="perfil" element={<Perfil />}></Route>
