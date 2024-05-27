@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import { Container } from "react-bootstrap";
@@ -7,129 +7,88 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
+import Alert from "react-bootstrap/Alert";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
 import PostList from "../../components/PostList/postList";
 import ComentarioList from "../../components/ComentarioList/comentarioList";
 import "./perfil.sass";
+
 const Perfil = () => {
   const [key, setKey] = useState("favoritos");
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [favoritos, setFavoritos] = useState([]);
+  const [comentarios, setComentarios] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
-  const comentarios = [
-    {
-        id: 1,
-        comentario: "Contenido del primer comentario...",
-        nombreUsuario: "Juan",
-        fechaComentario: "01/01/2022"
-    },
-    {
-        id: 2,
-        comentario: "Contenido del segundo comentario...",
-        nombreUsuario: "Maria",
-        fechaComentario: "02/01/2022"
-    },
-    {
-        id: 3,
-        comentario: "Contenido del tercer comentario...",
-        nombreUsuario: "Carlos",
-        fechaComentario: "03/01/2022"
-    }
-];
+  useEffect(() => {
+    const id_usuario = getCookie("userId");
+    setUserId(id_usuario);
 
+    const fetchUserPosts = async () => {
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setPosts(data);
+      } else {
+        console.error("Error al obtener las publicaciones del usuario");
+      }
+    };
 
+    const fetchUserFavorites = async () => {
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFavoritos(data);
+      } else {
+        console.error(
+          "Error al obtener las publicaciones favoritas del usuario"
+        );
+      }
+    };
 
-// Array de post ficticios
-const posts = [
-    {
-        id: 1,
-        title: "Mi primer post",
-        body: "Contenido del primer post...",
-        image: "https://via.placeholder.com/150",
-        numFavorites: 5,
-        date: "01/01/2022",
-        comentarios: [
-            {
-                id: 1,
-                comentario: "Contenido del primer comentario del primer post...",
-                nombreUsuario: "Pedro",
-                fechaComentario: "01/01/2022"
-            },
-            {
-                id: 2,
-                comentario: "Contenido del segundo comentario del primer post...",
-                nombreUsuario: "Ana",
-                fechaComentario: "01/01/2022"
-            },
-        ]
-    },
-    {
-        id: 2,
-        title: "Otro post interesante",
-        body: "Contenido del segundo post...",
-        image: "https://via.placeholder.com/150",
-        numFavorites: 3,
-        date: "02/01/2022",
-        comentarios: [
-            {
-                id: 1,
-                comentario: "Contenido del primer comentario del segundo post...",
-                nombreUsuario: "Lucia",
-                fechaComentario: "02/01/2022"
-            },
-            {
-                id: 2,
-                comentario: "Contenido del segundo comentario del segundo post...",
-                nombreUsuario: "Javier",
-                fechaComentario: "02/01/2022"
-            },
-        ]
-    },
-    {
-        id: 3,
-        title: "Último post del día",
-        body: "Contenido del tercer post...",
-        image: "https://via.placeholder.com/150",
-        numFavorites: 2,
-        date: "03/01/2022",
-        comentarios: [
-            {
-                id: 1,
-                comentario: "Contenido del primer comentario del tercer post...",
-                nombreUsuario: " Sofia",
-                fechaComentario: "03/01/2022"
-            },
-            {
-                id: 2,
-                comentario: "Contenido del segundo comentario del tercer post...",
-                nombreUsuario: "Alberto",
-                fechaComentario: "03/01/2022"
-            },
-        ]
-    }
-];
+    const fetchUserComments = async () => {
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setComentarios(data);
+      } else {
+        console.error("Error al obtener los comentarios del usuario");
+      }
+    };
 
-
-// Usar estos ejemplos de Post para mostrar en el PostList
+    fetchUserPosts();
+    fetchUserFavorites();
+    fetchUserComments();
+  }, [userId]);
 
   const validarEmail = (email) => {
-    // Expresión regular para validar el formato de correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
   const validateForm = () => {
     let valid = true;
-    if (name.length < 4 || name.length > 15) {
+    if (name && (name.length < 4 || name.length > 15)) {
       setNameError(true);
       valid = false;
     } else {
       setNameError(false);
     }
 
-    if (!validarEmail(email)) {
+    if (email && !validarEmail(email)) {
       setEmailError(true);
       valid = false;
     } else {
@@ -141,9 +100,35 @@ const posts = [
   const handleSubmitModify = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      event.preventDefault();
+      const data = {};
+      if (name) data.name = name;
+      if (email) data.email = email;
+      data.userId = userId;
+
+      fetch(
+        `http://localhost/nutri-delivery/backend/actions/update/updateUsuario.php`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            setShowSuccess(true);
+          } else {
+            setShowError(true);
+          }
+        })
+        .catch(() => {
+          setShowError(true);
+        });
     }
   };
+
   return (
     <>
       <HeaderComponent />
@@ -165,13 +150,18 @@ const posts = [
                 <Tab.Pane eventKey="perfil">
                   <Container className="p-5 perfil-datos-datos">
                     <h1>Datos</h1>
+                    {showSuccess && (
+                      <Alert variant="tertiary">Perfil actualizado con éxito.</Alert>
+                    )}
+                    {showError && (
+                      <Alert variant="primary">Error al actualizar el perfil. Inténtalo de nuevo.</Alert>
+                    )}
                     <Form onSubmit={handleSubmitModify}>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control
                           type="text"
                           placeholder="Edita tu nombre"
-                          required
                           className={`text ${nameError ? "is-invalid" : ""}`}
                           value={name}
                           onChange={(event) => setName(event.target.value)}
@@ -186,7 +176,6 @@ const posts = [
                         <Form.Control
                           type="email"
                           placeholder="Edita tu email"
-                          required
                           className={`text ${emailError ? "is-invalid" : ""}`}
                           value={email}
                           onChange={(event) => setEmail(event.target.value)}
@@ -236,7 +225,7 @@ const posts = [
                         <PostList posts={posts} />
                       </Tab>
                       <Tab eventKey="favoritos" title="Favoritos">
-                        Tab content for Profile
+                        <PostList posts={favoritos} />
                       </Tab>
                       <Tab eventKey="comentarios" title="Comentarios">
                         <ComentarioList comentarios={comentarios} />
@@ -255,3 +244,15 @@ const posts = [
 };
 
 export default Perfil;
+
+function getCookie(name) {
+  const cookies = document.cookie.split(";");
+  let userId;
+  cookies.forEach((cookie) => {
+    const [cookieName, cookieValue] = cookie.trim().split("=");
+    if (cookieName === name) {
+      userId = cookieValue;
+    }
+  });
+  return userId;
+}
