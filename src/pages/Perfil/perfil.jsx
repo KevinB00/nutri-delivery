@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
+import Alert from "react-bootstrap/Alert";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
 import PostList from "../../components/PostList/postList";
@@ -19,16 +20,21 @@ const Perfil = () => {
   const [nameError, setNameError] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-
   const [posts, setPosts] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const [comentarios, setComentarios] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     const id_usuario = getCookie("userId");
+    setUserId(id_usuario);
 
     const fetchUserPosts = async () => {
-      const response = await fetch(`http://localhost/nutri-delivery/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`);
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
+      );
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
@@ -38,17 +44,23 @@ const Perfil = () => {
     };
 
     const fetchUserFavorites = async () => {
-      const response = await fetch(`http://localhost/nutri-delivery/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`);
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
+      );
       if (response.ok) {
         const data = await response.json();
         setFavoritos(data);
       } else {
-        console.error("Error al obtener las publicaciones favoritas del usuario");
+        console.error(
+          "Error al obtener las publicaciones favoritas del usuario"
+        );
       }
     };
 
     const fetchUserComments = async () => {
-      const response = await fetch(`http://localhost/nutri-delivery/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`);
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
+      );
       if (response.ok) {
         const data = await response.json();
         setComentarios(data);
@@ -60,7 +72,7 @@ const Perfil = () => {
     fetchUserPosts();
     fetchUserFavorites();
     fetchUserComments();
-  }, []);
+  }, [userId]);
 
   const validarEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -69,14 +81,14 @@ const Perfil = () => {
 
   const validateForm = () => {
     let valid = true;
-    if (name.length < 4 || name.length > 15) {
+    if (name && (name.length < 4 || name.length > 15)) {
       setNameError(true);
       valid = false;
     } else {
       setNameError(false);
     }
 
-    if (!validarEmail(email)) {
+    if (email && !validarEmail(email)) {
       setEmailError(true);
       valid = false;
     } else {
@@ -88,8 +100,32 @@ const Perfil = () => {
   const handleSubmitModify = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      event.preventDefault();
-      // Lógica para enviar datos modificados al servidor
+      const data = {};
+      if (name) data.name = name;
+      if (email) data.email = email;
+      data.userId = userId;
+
+      fetch(
+        `http://localhost/nutri-delivery/backend/actions/update/updateUsuario.php`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            setShowSuccess(true);
+          } else {
+            setShowError(true);
+          }
+        })
+        .catch(() => {
+          setShowError(true);
+        });
     }
   };
 
@@ -114,13 +150,18 @@ const Perfil = () => {
                 <Tab.Pane eventKey="perfil">
                   <Container className="p-5 perfil-datos-datos">
                     <h1>Datos</h1>
+                    {showSuccess && (
+                      <Alert variant="tertiary">Perfil actualizado con éxito.</Alert>
+                    )}
+                    {showError && (
+                      <Alert variant="primary">Error al actualizar el perfil. Inténtalo de nuevo.</Alert>
+                    )}
                     <Form onSubmit={handleSubmitModify}>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Nombre</Form.Label>
                         <Form.Control
                           type="text"
                           placeholder="Edita tu nombre"
-                          required
                           className={`text ${nameError ? "is-invalid" : ""}`}
                           value={name}
                           onChange={(event) => setName(event.target.value)}
@@ -135,7 +176,6 @@ const Perfil = () => {
                         <Form.Control
                           type="email"
                           placeholder="Edita tu email"
-                          required
                           className={`text ${emailError ? "is-invalid" : ""}`}
                           value={email}
                           onChange={(event) => setEmail(event.target.value)}
