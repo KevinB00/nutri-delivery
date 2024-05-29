@@ -1,12 +1,20 @@
 <?php
 include '../variables.php';
 
+$origin = "http://localhost:5173";
+
+header("Content-type: application/json;charset=utf-8");
+header("Access-Control-Allow-Origin: $origin");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
 $loginEmail = trim($_POST['email']);
 $loginPassword = trim($_POST['password']);
 
 try {
     // Conexion a la base de datos
-    $db = new PDO("mysql:host=$serverName;dbname=$database", $user, $password);
+    $db = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
 
     // Busca el usuario que coincida con el email
     $dbQuery = $db->query("SELECT * FROM `usuario` WHERE `email` = '$loginEmail'");
@@ -14,7 +22,7 @@ try {
 
     checkUserData($userData[0], $loginEmail, $loginPassword);
 } catch (PDOException $e) {
-    echo $e;
+    echo json_encode(["error" => $e->getMessage()]);
 }
 
 // Comprueba que hay usuario y que coincide la contraseña
@@ -24,12 +32,12 @@ function checkUserData($user, $loginEm, $loginPass)
         if (password_verify($loginPass, $user['contrasena'])) {
             startSession($user); // Guarda el id de usuario en la sesión
             setcookie("userId", $user['id_usuario'], 0, '/'); // Alamcenamos en una cookie en el navegador el userId
-            header('Location: http://localhost:5173/'); // Cambia la url 
+            echo json_encode(["success" => true, "userId" => $user['id_usuario']]);
         } else {
-            echo "Contraseña incorrecta";
+            echo json_encode(["error" => "Contraseña incorrecta"]);
         }
     } else {
-        echo "No existe un usuario con ese correo";
+        echo json_encode(["error" => "No existe un usuario con ese correo"]);
     }
 }
 

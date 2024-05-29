@@ -2,7 +2,7 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Alert } from "react-bootstrap";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
 import "./login.sass";
@@ -10,10 +10,30 @@ import "./login.sass";
 const Login = () => {
   const url = "http://localhost/nutri-delivery/backend/auth/login.php";
   const [validEmail, setValidEmail] = useState(true);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("primary");
 
   const validateEmail = (event) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setValidEmail(regex.test(event.target.value)); // Valida el correo electrónico y actualiza el estado de validación
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include', // Asegúrate de incluir las credenciales en la solicitud
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+      setAlertMessage(data.error);
+      setAlertVariant("primary");
+    } else {
+      window.location.href = "http://localhost:5173/";
+    }
   };
 
   return (
@@ -26,7 +46,12 @@ const Login = () => {
           </Col>
           <Col className="inicia">
             <h1 className="title">Iniciar sesión</h1>
-            <Form action={url} method="post">
+            {alertMessage && (
+              <Alert variant={alertVariant} onClose={() => setAlertMessage("")} dismissible>
+                {alertMessage}
+              </Alert>
+            )}
+            <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Correo</Form.Label>
                 <Form.Control
@@ -66,3 +91,4 @@ const Login = () => {
 };
 
 export default Login;
+
