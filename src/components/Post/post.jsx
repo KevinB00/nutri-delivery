@@ -23,6 +23,7 @@ const Post = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [comment, setComment] = useState("");
   const [comentarios, setComentarios] = useState([]);
+  const [postImage, setPostImage] = useState(props.postImage);
 
   useEffect(() => {
     const fetchIsFavorited = async () => {
@@ -40,9 +41,24 @@ const Post = (props) => {
         console.error("Error al verificar el favorito");
       }
     };
+    const fetchImgagePost = async () => {
+      const id_post = props.postId;
+      const response = await fetch(
+        `http://localhost/nutri-delivery/backend/actions/read/getImagePost.php?id_post=${id_post}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setPostImage(data.ruta_archivo);
+      } else {
+        console.error("Error al obtener la imagen del post");
+      }
+    };
 
     fetchIsFavorited();
-  }, [props.postId]);
+    if (props.postImage == 1) {
+      fetchImgagePost();
+    }
+  }, [props.postId, props.postImage]);
 
   const handleFavoriteClick = async () => {
     setIsFavorited(!isFavorited);
@@ -118,7 +134,7 @@ const Post = (props) => {
       <Card.Body>
         <Card.Title>{props.postTitle}</Card.Title>
         <Card.Text>{props.postText}</Card.Text>
-        <img src={props.postImage} alt="Post" />
+        {postImage ? <Card.Img variant="top" src={`http://localhost/nutri-delivery/backend/actions/create/${postImage}`} style={{height: "250px", width: "350px"}} /> : <div></div>}
         <p>Fecha de publicación: {props.postDate}</p>
         <Button variant="tertiary" onClick={handleFavoriteClick}>
           <i className={`bi bi-star${isFavorited ? "-fill" : ""}`}></i>{" "}

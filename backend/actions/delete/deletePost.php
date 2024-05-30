@@ -11,6 +11,17 @@ $input = json_decode(file_get_contents("php://input"));
 try {
     $conn = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT tiene_imagen FROM post WHERE id_publicacion = :id");
+    $stmt->bindParam(':id', $input->id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result['tiene_imagen']) {
+        $stmt = $conn->prepare("DELETE FROM imagenpost WHERE id_publicacion = :id");
+        $stmt->bindParam(':id', $input->id);
+        $stmt->execute();
+    }
+
     $stmt = $conn->prepare("DELETE FROM post WHERE id_publicacion = :id");
     $stmt->bindParam(':id', $input->id);
     $stmt->execute();

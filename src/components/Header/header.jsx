@@ -23,7 +23,7 @@ const HeaderComponent = () => {
 
   const handleSearch = async (event) => {
     event.preventDefault();
-    if (searchQuery.trim() === '') {
+    if (searchQuery.trim() === '' || searchQuery.length < 4) {
       return;
     }
     const response = await fetch(`http://localhost/nutri-delivery/backend/actions/search/search.php?query=${searchQuery}`);

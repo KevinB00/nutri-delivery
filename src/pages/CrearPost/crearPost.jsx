@@ -2,13 +2,14 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 import './crearPost.sass';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(null);
+  const [alert, setAlert] = useState({ message: "", type: "" });
 
   const cookies = document.cookie.split(";");
   let userId;
@@ -31,19 +32,25 @@ const CreatePost = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost/nutri-delivery/backend/actions/create/createPost.php', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      const response = await fetch("http://localhost/nutri-delivery/backend/actions/create/createPost.php", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
       });
-      console.log(response.data);
+      const result = await response.json();
+      if (response.ok) {
+        setAlert({ message: "Post creado exitosamente", type: "tertiary" });
+      } else {
+        throw new Error(result.error || "Error al crear el post");
+      }
     } catch (error) {
-      console.error('Error creating post:', error);
+      setAlert({ message: error.message, type: "primary" });
     }
   };
 
   return (
     <Container className="mt-5 create-post-container">
+      {alert.message && <Alert variant={alert.type}>{alert.message}</Alert>}
       <h1 className="create-post-header">Crear Nuevo Post</h1>
       <Form className="create-post-form" onSubmit={handleSubmit}>
         <Form.Group controlId="formTitle">

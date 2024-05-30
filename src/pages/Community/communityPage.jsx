@@ -12,15 +12,23 @@ import "./communityPage.sass";
 const CommunityPage = () => {
   const [posts, setPosts] = useState([]);
   const [filterOptionsVisible, setFilterOptionsVisible] = useState(false);
-  const setFilter = (filter) => {
-    filter === "favoritos"
-  }
+  const [filters, setFilters] = useState({ favoritos: "", fecha: "" });
 
-  const applyFilter = () => {
+  const applyFilter = async () => {
     setFilterOptionsVisible(false);
-  }
 
-  //Listar posts
+    const query = new URLSearchParams(filters).toString();
+    const response = await fetch(`http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php?${query}`);
+    const data = await response.json();
+    setPosts(data);
+  };
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters({ ...filters, [name]: value });
+  };
+
+  // Listar posts
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php");
@@ -29,8 +37,6 @@ const CommunityPage = () => {
     };
     fetchPosts();
   }, []);
-  
-
 
   return (
     <>
@@ -52,24 +58,37 @@ const CommunityPage = () => {
                 <form>
                   <div className="mb-3">
                     <label htmlFor="filterFav" className="form-label">Favoritos</label>
-                    <select className="form-select" id="filterFav" onChange={(e) => setFilter({ favoritos: e.target.value })}>
-                      <option value=""> Todos</option>
+                    <select
+                      className="form-select"
+                      id="filterFav"
+                      name="favoritos"
+                      onChange={handleFilterChange}
+                      value={filters.favoritos}
+                    >
+                      <option value="">Todos</option>
                       <option value="1">Sí</option>
                       <option value="0">No</option>
                     </select>
                   </div>
                   <div className="mb-3">
                     <label htmlFor="filterDate" className="form-label">Fecha</label>
-                    <select className="form-select" id="filterDate" onChange={(e) => setFilter({ fecha: e.target.value })}>
-                      <option value=""> Todos</option>
+                    <select
+                      className="form-select"
+                      id="filterDate"
+                      name="fecha"
+                      onChange={handleFilterChange}
+                      value={filters.fecha}
+                    >
+                      <option value="">Todos</option>
                       <option value="asc">Ascendente</option>
                       <option value="desc">Descendente</option>
                     </select>
                   </div>
-                  <button type="button" className="btn btn-secondary" onClick={() => {
-                    setFilterOptionsVisible(false);
-                    applyFilter();
-                  }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={applyFilter}
+                  >
                     Aceptar
                   </button>
                 </form>

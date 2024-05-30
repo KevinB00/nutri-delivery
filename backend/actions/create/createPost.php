@@ -18,6 +18,9 @@ try {
     $imagePath = $hasImage ? 'uploads/' . $imageName : null;
 
     if ($hasImage) {
+        if (!file_exists('uploads')) {
+            mkdir('uploads', 0777, true);
+        }
         move_uploaded_file($_FILES['imagen']['tmp_name'], $imagePath);
     }
 
