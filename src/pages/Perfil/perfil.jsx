@@ -26,6 +26,7 @@ const Perfil = () => {
   const [userId, setUserId] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const id_usuario = getCookie("userId");
@@ -103,6 +104,7 @@ const Perfil = () => {
       const data = {};
       if (name) data.name = name;
       if (email) data.email = email;
+      if (newPassword) data.password = newPassword;
       data.userId = userId;
 
       fetch(
@@ -151,10 +153,14 @@ const Perfil = () => {
                   <Container className="p-5 perfil-datos-datos">
                     <h1>Datos</h1>
                     {showSuccess && (
-                      <Alert variant="tertiary">Perfil actualizado con éxito.</Alert>
+                      <Alert variant="tertiary">
+                        Perfil actualizado con éxito.
+                      </Alert>
                     )}
                     {showError && (
-                      <Alert variant="primary">Error al actualizar el perfil. Inténtalo de nuevo.</Alert>
+                      <Alert variant="primary">
+                        Error al actualizar el perfil. Inténtalo de nuevo.
+                      </Alert>
                     )}
                     <Form onSubmit={handleSubmitModify}>
                       <Form.Group className="mb-3" controlId="formBasicName">
@@ -188,7 +194,7 @@ const Perfil = () => {
                         Modificar <i className="bi-solid bi-pencil-square"></i>
                       </Button>
                     </Form>
-                    <Form>
+                    <Form onSubmit={handleSubmitModify}>
                       <Form.Group
                         className="mt-3 mb-3"
                         controlId="formBasicPassword"
@@ -196,6 +202,10 @@ const Perfil = () => {
                         <Form.Label>Contraseña</Form.Label>
                         <Form.Control
                           type="password"
+                          value={newPassword}
+                          onChange={(event) =>
+                            setNewPassword(event.target.value)
+                          }
                           placeholder="Ingresa tu nueva contraseña"
                         />
                       </Form.Group>

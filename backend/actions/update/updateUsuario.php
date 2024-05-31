@@ -10,7 +10,13 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $name = isset($data['name']) ? $data['name'] : null;
 $email = isset($data['email']) ? $data['email'] : null;
-$userId = $data['userId'];
+$newPassword = isset($data['password']) ? $data['password'] : null;
+$userId = isset($data['userId']) ? intval($data['userId']) : null;
+
+if ($userId === null) {
+    echo json_encode(['error' => 'User ID is required']);
+    exit();
+}
 
 try {
     $conn = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
@@ -33,15 +39,22 @@ try {
     // Construir la consulta de actualización dinámicamente
     $query = "UPDATE usuario SET ";
     $params = [];
-    
+
     if ($name) {
         $query .= "nombre = :name, ";
         $params[':name'] = $name;
     }
-    
+
     if ($email) {
         $query .= "email = :email, ";
         $params[':email'] = $email;
+    }
+
+    if ($newPassword) {
+        // Asegúrate de hash la contraseña antes de almacenarla
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $query .= "contrasena = :password, ";
+        $params[':password'] = $hashedPassword;
     }
 
     // Eliminar la última coma y añadir la cláusula WHERE
