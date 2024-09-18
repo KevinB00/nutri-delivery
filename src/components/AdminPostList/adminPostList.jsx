@@ -7,13 +7,13 @@ const AdminPostList = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php')
+    axios.get('http://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php')
       .then(response => setPosts(response.data))
       .catch(error => console.error(error));
   }, []);
 
   const handleDelete = (postId) => {
-    axios.delete('http://localhost/nutri-delivery/backend/actions/delete/deletePost.php', { data: { id: postId } })
+    axios.delete('http://nutri-delivery.vercel.app/backend/actions/delete/deletePost.php', { data: { id: postId } })
       .then(() => setPosts(posts.filter(post => post.id !== postId)))
       .catch(error => console.error(error));
   };

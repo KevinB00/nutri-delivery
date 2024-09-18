@@ -5,10 +5,11 @@ import Button from "react-bootstrap/Button";
 import { Row, Col, Alert } from "react-bootstrap";
 import HeaderComponent from "../../components/Header/header";
 import FooterComponent from "../../components/Footer/footer";
+import imageLogin from "../../assets/loginimg.jpg";
 import "./login.sass";
 
 const Login = () => {
-  const url = "http://localhost/nutri-delivery/backend/auth/login.php";
+  const url = "http://nutri-delivery.vercel.app/backend/auth/login.php";
   const [validEmail, setValidEmail] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("primary");
@@ -32,7 +33,7 @@ const Login = () => {
       setAlertMessage(data.error);
       setAlertVariant("primary");
     } else {
-      window.location.href = "http://localhost:5173/";
+      window.location.href = "http://nutri-delivery.vercel.app/";
     }
   };
 
@@ -42,7 +43,7 @@ const Login = () => {
       <Container className="container">
         <Row md={3} className="row">
           <Col className="image">
-            <img src="./src/assets/login-img.jpg" alt="Imagen" />
+            <img src={imageLogin} alt="Imagen" />
           </Col>
           <Col className="inicia">
             <h1 className="title">Iniciar sesión</h1>

@@ -1,6 +1,6 @@
 <?php
-    $server_name = 'localhost';
+    $server_name = 'nutridelivery.czftuhqtrumr.us-east-1.rds.amazonaws.com';
     $user = 'root';
-    $password = '';
+    $password = 'root1234';
     $database = 'nutridelivery';
 ?>

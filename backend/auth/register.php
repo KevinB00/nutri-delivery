@@ -9,7 +9,7 @@ $pswdHash = password_hash($passwordNav, PASSWORD_BCRYPT);
 
 try {
     // Conexion a la base de datos
-    $db = new PDO("mysql:host=$serverName;dbname=$database", $user, $password);
+    $db = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
 
     // Insertar usuario en la base de datos (registro)
     $dbQuery = $db->query("INSERT INTO `usuario`(`nombre`, `email`, `contrasena`, `ciudad`, `es_administrador`)
@@ -23,7 +23,7 @@ try {
     setcookie("userId", $_SESSION['userId'], 0, '/'); // Almacenar el userId en una cookie en el navegador
 
     // Cambia la url a landing
-    header('Location: http://localhost:5173/');
+    header('Location: http://nutri-delivery.vercel.app');
 
     // Cierra la conexión y la query
     $db = null;

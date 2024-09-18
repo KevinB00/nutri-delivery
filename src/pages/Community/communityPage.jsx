@@ -18,7 +18,7 @@ const CommunityPage = () => {
     setFilterOptionsVisible(false);
 
     const query = new URLSearchParams(filters).toString();
-    const response = await fetch(`http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php?${query}`);
+    const response = await fetch(`http://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php?${query}`);
     const data = await response.json();
     setPosts(data);
   };
@@ -31,7 +31,7 @@ const CommunityPage = () => {
   // Listar posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost/nutri-delivery/backend/actions/read/getAllPosts.php");
+      const response = await fetch("http://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php");
       const data = await response.json();
       setPosts(data);
     };
@@ -96,8 +96,8 @@ const CommunityPage = () => {
             </Modal>
           </Col>
         </Row>
-        <Row>
-          <Col className="mb-3">
+        <Row xs={1} md={1} lg={1}>
+          <Col className="mb-3" xs={12}>
             <PostList posts={posts} />
           </Col>
         </Row>

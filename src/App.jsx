@@ -28,7 +28,7 @@ function App(props) {
 
   const checkIfAdmin = async (userId) => {
     try {
-      const response = await fetch(`http://localhost/nutri-delivery/backend/auth/isAdmin.php?id_usuario=${userId}`);
+      const response = await fetch(`http://nutri-delivery.vercel.app/backend/auth/isAdmin.php?id_usuario=${userId}`);
       const data = await response.json();
       setIsAdmin(data.es_administrador);
     } catch (error) {

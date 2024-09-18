@@ -31,7 +31,7 @@ const Post = (props) => {
       const id_usuario = getCookie("userId");
 
       const response = await fetch(
-        `http://localhost/nutri-delivery/backend/actions/read/checkFavorito.php?id_post=${id_post}&id_usuario=${id_usuario}`
+        `http://nutri-delivery.vercel.app/backend/actions/read/checkFavorito.php?id_post=${id_post}&id_usuario=${id_usuario}`
       );
 
       if (response.ok) {
@@ -44,7 +44,7 @@ const Post = (props) => {
     const fetchImgagePost = async () => {
       const id_post = props.postId;
       const response = await fetch(
-        `http://localhost/nutri-delivery/backend/actions/read/getImagePost.php?id_post=${id_post}`
+        `http://nutri-delivery.vercel.app/backend/actions/read/getImagePost.php?id_post=${id_post}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -68,7 +68,7 @@ const Post = (props) => {
     const action = isFavorited ? "quitar" : "agregar";
 
     const response = await fetch(
-      "http://localhost/nutri-delivery/backend/actions/update/updateFavorite.php",
+      "http://nutri-delivery.vercel.app/backend/actions/update/updateFavorite.php",
       {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ const Post = (props) => {
     if (!showComments) {
       try {
         const response = await fetch(
-          `http://localhost/nutri-delivery/backend/actions/read/getComentariosByPost.php?id_post=${props.postId}`
+          `http://nutri-delivery.vercel.app/backend/actions/read/getComentariosByPost.php?id_post=${props.postId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -110,7 +110,7 @@ const Post = (props) => {
     const comentario = comment;
 
     const response = await fetch(
-      "http://localhost/nutri-delivery/backend/actions/create/addComentario.php",
+      "http://nutri-delivery.vercel.app/backend/actions/create/addComentario.php",
       {
         method: "POST",
         headers: {
@@ -134,7 +134,7 @@ const Post = (props) => {
       <Card.Body>
         <Card.Title>{props.postTitle}</Card.Title>
         <Card.Text>{props.postText}</Card.Text>
-        {postImage ? <Card.Img variant="top" src={`http://localhost/nutri-delivery/backend/actions/create/${postImage}`} style={{height: "250px", width: "350px"}} /> : <div></div>}
+        {postImage ? <Card.Img className="image-post" variant="top" src={`http://nutri-delivery.vercel.app/backend/actions/create/${postImage}`} style={{height: "250px", width: "350px"}} /> : <div></div>}
         <p>Fecha de publicación: {props.postDate}</p>
         <Button variant="tertiary" onClick={handleFavoriteClick}>
           <i className={`bi bi-star${isFavorited ? "-fill" : ""}`}></i>{" "}

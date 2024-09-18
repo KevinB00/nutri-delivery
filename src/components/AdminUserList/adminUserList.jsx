@@ -7,13 +7,13 @@ const AdminUserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost/nutri-delivery/backend/actions/read/getAllUsers.php')
+    axios.get('http://nutri-delivery.vercel.app/backend/actions/read/getAllUsers.php')
       .then(response => setUsers(response.data))
       .catch(error => console.error(error));
   }, []);
 
   const handleDelete = (userId) => {
-    axios.delete('http://localhost/nutri-delivery/backend/actions/delete/deleteUser.php', { data: { id: userId } })
+    axios.delete('http://nutri-delivery.vercel.app/backend/actions/delete/deleteUser.php', { data: { id: userId } })
       .then(() => setUsers(users.filter(user => user.id !== userId)))
       .catch(error => console.error(error));
   };

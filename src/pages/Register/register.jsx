@@ -91,7 +91,7 @@ const Register = () => {
       formData.append("password", password);
 
       try {
-        const response = await fetch("http://localhost/nutri-delivery/backend/auth/register.php", {
+        const response = await fetch("http://nutri-delivery.vercel.app/backend/auth/register.php", {
           method: "POST",
           body: formData,
         });
@@ -99,7 +99,7 @@ const Register = () => {
         if (response.ok) {
           const result = await response.json();
           console.log("Registro exitoso", result);
-          window.location.href = "http://localhost:5173/";
+          window.location.href = "http://nutri-delivery.vercel.app/";
         } else {
           console.error("Error en el registro");
         }

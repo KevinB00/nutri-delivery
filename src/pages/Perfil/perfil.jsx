@@ -34,7 +34,7 @@ const Perfil = () => {
 
     const fetchUserPosts = async () => {
       const response = await fetch(
-        `http://localhost/nutri-delivery/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
+        `http://nutri-delivery.vercel.app/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -46,7 +46,7 @@ const Perfil = () => {
 
     const fetchUserFavorites = async () => {
       const response = await fetch(
-        `http://localhost/nutri-delivery/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
+        `http://nutri-delivery.vercel.app/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -60,7 +60,7 @@ const Perfil = () => {
 
     const fetchUserComments = async () => {
       const response = await fetch(
-        `http://localhost/nutri-delivery/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
+        `http://nutri-delivery.vercel.app/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +108,7 @@ const Perfil = () => {
       data.userId = userId;
 
       fetch(
-        `http://localhost/nutri-delivery/backend/actions/update/updateUsuario.php`,
+        `http://nutri-delivery.vercel.app/backend/actions/update/updateUsuario.php`,
         {
           method: "POST",
           headers: {
@@ -229,16 +229,40 @@ const Perfil = () => {
                       id="controlled-tab-example"
                       activeKey={key}
                       onSelect={(k) => setKey(k)}
-                      className="mb-3"
+                      className="mb-3 mt-3"
                     >
-                      <Tab eventKey="publicaciones" title="Publicaciones">
-                        <PostList posts={posts} />
+                      <Tab
+                        xs={1}
+                        md={1}
+                        lg={1}
+                        eventKey="publicaciones"
+                        title="Publicaciones"
+                      >
+                        <Col className="mb-3" xs={12}>
+                          <PostList posts={posts} />
+                        </Col>
                       </Tab>
-                      <Tab eventKey="favoritos" title="Favoritos">
-                        <PostList posts={favoritos} />
+                      <Tab
+                        xs={1}
+                        md={1}
+                        lg={1}
+                        eventKey="favoritos"
+                        title="Favoritos"
+                      >
+                        <Col className="mb-3" xs={12}>
+                          <PostList posts={favoritos} />
+                        </Col>
                       </Tab>
-                      <Tab eventKey="comentarios" title="Comentarios">
-                        <ComentarioList comentarios={comentarios} />
+                      <Tab
+                        xs={1}
+                        md={1}
+                        lg={1}
+                        eventKey="comentarios"
+                        title="Comentarios"
+                      >
+                        <Col className="mb-3" xs={12}>
+                          <ComentarioList comentarios={comentarios} />
+                        </Col>
                       </Tab>
                     </Tabs>
                   </Container>

@@ -26,7 +26,7 @@ const HeaderComponent = () => {
     if (searchQuery.trim() === '' || searchQuery.length < 4) {
       return;
     }
-    const response = await fetch(`http://localhost/nutri-delivery/backend/actions/search/search.php?query=${searchQuery}`);
+    const response = await fetch(`http://nutri-delivery.vercel.app/backend/actions/search/search.php?query=${searchQuery}`);
     const data = await response.json();
     setSearchResults(data);
   };
