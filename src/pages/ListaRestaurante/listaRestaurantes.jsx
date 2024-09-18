@@ -13,7 +13,7 @@ const ListaRestaurantes = () => {
   const initialCity = queryParams.get('ciudad') || "Madrid";
 
   const url =
-    "http://nutri-delivery.vercel.app/backend/actions/read/getAllRestaurants.php";
+    "https://nutri-delivery.vercel.app/backend/actions/read/getAllRestaurants.php";
   const [restaurantes, setRestaurantes] = React.useState([]);
   const [ciudadSeleccionada, setCiudadSeleccionada] = React.useState(initialCity)
 

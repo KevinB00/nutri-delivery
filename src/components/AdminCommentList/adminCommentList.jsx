@@ -7,13 +7,13 @@ const AdminCommentList = () => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get('http://nutri-delivery.vercel.app/backend/actions/read/getAllComments.php')
+    axios.get('https://nutri-delivery.vercel.app/backend/actions/read/getAllComments.php')
       .then(response => setComments(response.data))
       .catch(error => console.error(error));
   }, []);
 
   const handleDelete = (commentId) => {
-    axios.delete('http://nutri-delivery.vercel.app/backend/actions/delete/deleteComment.php', { data: { id: commentId } })
+    axios.delete('https://nutri-delivery.vercel.app/backend/actions/delete/deleteComment.php', { data: { id: commentId } })
       .then(() => setComments(comments.filter(comment => comment.id !== commentId)))
       .catch(error => console.error(error));
   };

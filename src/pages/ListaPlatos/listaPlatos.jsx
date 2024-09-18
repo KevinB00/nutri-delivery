@@ -11,7 +11,7 @@ import './listaPlatos.sass';
 const ListaPlatos = () => {
   const { restauranteId } = useParams();
   const [platos, setPlatos] = useState([]);
-  const baseUrl = "http://nutri-delivery.vercel.app/backend/actions/read/";
+  const baseUrl = "https://nutri-delivery.vercel.app/backend/actions/read/";
 
   useEffect(() => {
     const fetchPlatos = async () => {
@@ -46,7 +46,7 @@ const ListaPlatos = () => {
                 id={plato.id} 
                 nombre={plato.nombre} 
                 precio={plato.precio} 
-                img={`http://nutri-delivery.vercel.app/${plato.imagen_url}`} 
+                img={`https://nutri-delivery.vercel.app/${plato.imagen_url}`} 
                 descripcion={`${plato.calorias} cal | ${plato.proteinas}g proteínas | ${plato.carbohidratos}g carbohidratos | ${plato.grasas}g grasas`} 
               />
             </Col>

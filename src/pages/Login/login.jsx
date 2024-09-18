@@ -9,7 +9,7 @@ import imageLogin from "../../assets/loginimg.jpg";
 import "./login.sass";
 
 const Login = () => {
-  const url = "http://nutri-delivery.vercel.app/backend/auth/login.php";
+  const url = "https://nutri-delivery.vercel.app/backend/auth/login.php";
   const [validEmail, setValidEmail] = useState(true);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertVariant, setAlertVariant] = useState("primary");
@@ -33,7 +33,7 @@ const Login = () => {
       setAlertMessage(data.error);
       setAlertVariant("primary");
     } else {
-      window.location.href = "http://nutri-delivery.vercel.app/";
+      window.location.href = "https://nutri-delivery.vercel.app/";
     }
   };
 

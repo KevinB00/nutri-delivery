@@ -3,7 +3,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import NavLink from 'react-bootstrap/NavLink';
 import "./menuUsuario.sass"
 const MenuUsuario = () => {
-    const urlLogout = "http://nutri-delivery.vercel.app/backend/auth/logout.php";
+    const urlLogout = "https://nutri-delivery.vercel.app/backend/auth/logout.php";
   const handleLogout = () => {
     fetch(urlLogout);
         document.cookie = "userId=; max-age=0"; // Destroy the cookie userId

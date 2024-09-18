@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './sass/index.sass'
 
-const urlLogged = "http://nutri-delivery.vercel.app/backend/auth/isLogged.php";
+const urlLogged = "https://nutri-delivery.vercel.app/backend/auth/isLogged.php";
 const cookies = document.cookie.split(";");
 const checkSession = () => {
   let userId;

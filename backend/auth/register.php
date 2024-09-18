@@ -23,7 +23,7 @@ try {
     setcookie("userId", $_SESSION['userId'], 0, '/'); // Almacenar el userId en una cookie en el navegador
 
     // Cambia la url a landing
-    header('Location: http://nutri-delivery.vercel.app');
+    header('Location: https://nutri-delivery.vercel.app');
 
     // Cierra la conexión y la query
     $db = null;

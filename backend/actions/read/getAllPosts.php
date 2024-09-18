@@ -2,7 +2,7 @@
 include '../../variables.php';
 
 header("Content-type: application/json;charset=utf-8");
-header("Access-Control-Allow-Origin: http://nutri-delivery.vercel.app");
+header("Access-Control-Allow-Origin: https://nutri-delivery.vercel.app");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Origin, Authorization");
 header("Access-Control-Allow-Credentials: true");

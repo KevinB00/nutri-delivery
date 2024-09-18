@@ -34,7 +34,7 @@ const Perfil = () => {
 
     const fetchUserPosts = async () => {
       const response = await fetch(
-        `http://nutri-delivery.vercel.app/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
+        `https://nutri-delivery.vercel.app/backend/actions/read/getUserPosts.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -46,7 +46,7 @@ const Perfil = () => {
 
     const fetchUserFavorites = async () => {
       const response = await fetch(
-        `http://nutri-delivery.vercel.app/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
+        `https://nutri-delivery.vercel.app/backend/actions/read/getUserFavoritos.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -60,7 +60,7 @@ const Perfil = () => {
 
     const fetchUserComments = async () => {
       const response = await fetch(
-        `http://nutri-delivery.vercel.app/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
+        `https://nutri-delivery.vercel.app/backend/actions/read/getUserComentarios.php?id_usuario=${id_usuario}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +108,7 @@ const Perfil = () => {
       data.userId = userId;
 
       fetch(
-        `http://nutri-delivery.vercel.app/backend/actions/update/updateUsuario.php`,
+        `https://nutri-delivery.vercel.app/backend/actions/update/updateUsuario.php`,
         {
           method: "POST",
           headers: {

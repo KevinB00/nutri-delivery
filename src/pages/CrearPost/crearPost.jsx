@@ -32,7 +32,7 @@ const CreatePost = () => {
     }
 
     try {
-      const response = await fetch("http://nutri-delivery.vercel.app/backend/actions/create/createPost.php", {
+      const response = await fetch("https://nutri-delivery.vercel.app/backend/actions/create/createPost.php", {
         method: "POST",
         body: formData,
         credentials: "include",

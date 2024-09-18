@@ -18,7 +18,7 @@ const CommunityPage = () => {
     setFilterOptionsVisible(false);
 
     const query = new URLSearchParams(filters).toString();
-    const response = await fetch(`http://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php?${query}`);
+    const response = await fetch(`https://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php?${query}`);
     const data = await response.json();
     setPosts(data);
   };
@@ -31,7 +31,7 @@ const CommunityPage = () => {
   // Listar posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php");
+      const response = await fetch("https://nutri-delivery.vercel.app/backend/actions/read/getAllPosts.php");
       const data = await response.json();
       setPosts(data);
     };

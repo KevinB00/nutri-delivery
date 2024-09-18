@@ -1,7 +1,7 @@
 <?php
 include '../variables.php';
 
-$origin = "http://nutri-delivery.vercel.app";
+$origin = "https://nutri-delivery.vercel.app";
 
 header("Content-type: application/json;charset=utf-8");
 header("Access-Control-Allow-Origin: $origin");
