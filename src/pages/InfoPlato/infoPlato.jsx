@@ -25,7 +25,7 @@ const InfoPlato = () => {
     const fetchPlato = async () => {
       try {
         const response = await fetch(
-          `https://nutri-delivery.vercel.app/backend/actions/read/getInfoPlato.php?id_plato=${platoId}`
+          `https://nutri-delivery-git-modificar-conexiondb-kevinb00s-projects.vercel.app/backend/actions/read/getInfoPlato.php?id_plato=${platoId}`
         );
         const data = await response.json();
         setPlato(data);
@@ -97,7 +97,7 @@ const InfoPlato = () => {
           <>
             {/* Preview Image */}
             <Image
-              src={`https://nutri-delivery.vercel.app/${plato.imagen_url}`}
+              src={`https://nutri-delivery-git-modificar-conexiondb-kevinb00s-projects.vercel.app/${plato.imagen_url}`}
               alt={plato.nombre}
               width={500}
               className="plato-preview"

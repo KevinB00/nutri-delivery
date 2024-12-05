@@ -2,7 +2,7 @@
 
 include '../Connection.php';
 
-$origin = "https://nutri-delivery.vercel.app";
+$origin = "https://nutri-delivery-git-modificar-conexiondb-kevinb00s-projects.vercel.app";
 
 header("Content-type: application/json;charset=utf-8");
 header("Access-Control-Allow-Origin: $origin");
