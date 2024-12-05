@@ -1,5 +1,6 @@
 <?php
-include '../variables.php';
+include '../Connection.php';
+
 
 header("Content-type: application/json;charset=utf-8");
 header("Access-Control-Allow-Origin: *");
@@ -9,7 +10,7 @@ header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Or
 $userId = $_GET['id_usuario'];
 
 try {
-    $conn = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
+    $conn = Connection::get()->getConnection();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $conn->prepare("SELECT es_administrador FROM usuario WHERE id_usuario = :id_usuario");

@@ -1,5 +1,6 @@
 <?php
-include '../variables.php';
+
+include '../Connection.php';
 
 $origin = "https://nutri-delivery.vercel.app";
 
@@ -14,8 +15,7 @@ $loginPassword = trim($_POST['password']);
 
 try {
     // Conexion a la base de datos
-    $db = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
-
+    $db = Connection::get()->connect();
     // Busca el usuario que coincida con el email
     $dbQuery = $db->query("SELECT * FROM `usuario` WHERE `email` = '$loginEmail'");
     $userData = $dbQuery->fetchAll(); // Todos los users

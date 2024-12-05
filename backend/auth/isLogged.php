@@ -1,11 +1,11 @@
 <?php
-    include '../variables.php';
+include '../Connection.php';
 
     $userId = $_GET['userId'];
 
     try {
         // Conexion a la base de datos
-        $db = new PDO("mysql:host=$server_name;dbname=$database", $user, $password);
+        $db = Connection::get()->connect();
 
         // Busca el usuario que coincida con el userId
         $dbQuery = $db->query("SELECT * FROM `usuario` WHERE `id_usuario` = '$userId'");
